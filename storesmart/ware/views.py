@@ -1,4 +1,4 @@
-from .forms import Userform
+from .forms import Userform2
 from django.shortcuts import render
 from django.http import Http404,HttpResponseRedirect,HttpResponse
 from django.contrib.auth import authenticate ,login,logout
@@ -13,12 +13,12 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
 	import simplejson, urllib
-	AUTH_KEY = AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0
+	AUTH_KEY = "AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
 	orig_lat, orig_lng=10,10
 	dest_lat, dest_lng=20,20
 	orig_coord = orig_lat, orig_lng
 	dest_coord = dest_lat, dest_lng
-	url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
+	url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&key='AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0'"
 	#url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
 	#result= simplejson.load(urllib.urlopen(url))
 	result = requests.get(url).json()
@@ -28,7 +28,7 @@ def home(request):
 
 def register(request):
 	if request.method=='POST':
-		form=Userform(request.POST)
+		form=Userform2(request.POST)
 		if form.is_valid():
 			user=form.save(commit=False)
 			username = form.cleaned_data['username']
@@ -42,7 +42,7 @@ def register(request):
 				return HttpResponseRedirect('/index/')
 		return render(request,'registration.html',{'form':form})
 	else:
-		form=Userform(None)
+		form=Userform2(None)
 		return render(request,'registration.html',{'form':form})
 
 def logintoit(request):
@@ -73,7 +73,7 @@ def index(request):
 				return render(request,'index.html',{})
 		else:
 			temp=request.POST.get('flag')
-			if flag=='ware':
+			if temp=='ware':
 				sam=Userform.objects.create(user=user,flag=1)
 				sam.save()
 			else:

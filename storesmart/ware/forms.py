@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-class Userform(forms.ModelForm):
+class Userform2(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput)
 
 	class Meta:
