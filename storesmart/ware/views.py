@@ -12,20 +12,28 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-	stat=0
-	if 'txtSource' in request.POST:
-		stat=1
-		arr=['Andheri, Mumbai, India', 'Andheri, Mumbai, India' ]
+	q='Vancouver, BC, Canada'
+    w='San Francisco, CA, USA'
+    url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+q+"&destinations="+w+"&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
+    ds = requests.get(url).json()
+    a=ds['destination_addresses']
+    b=ds['rows'][0]['elements'][0]['distance']['text']
+    return HttpResponse(b)
+	
+def edit_warehouse(request,id):
+	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
+		if request.method=="GET":
+			ware=warehouse.objects.get(pk=id)
+			return render(request,'edit_warehouse.html',{ware:"ware"})
+		else:
+			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'))
+			obj.save()
+			return HttpResponseRedirect('/')
+	elif Userform.objects.get(user=request.user).flag==2:
+		return HttpResponseRedirect('/')
 	else:
-		stat=0
-		arr=[]
-	context = {
-	 "arr":arr,
-	 "stat":stat,
-	}
-    
-	return render(request,'abc.html',context)
-
+		return HttpResponseRedirect('/account/login')
+		
 def add_warehouse(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
 		if request.method=="GET":
@@ -96,5 +104,4 @@ def index(request):
 				sam=Userform.objects.create(user=user,flag=2)
 				sam.save()
 			return HttpResponseRedirect('/')
-
 
