@@ -13,7 +13,21 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
 	return render(request,'abc.html',{})
-
+	
+def edit_warehouse(request,id):
+	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
+		if request.method=="GET":
+			ware=warehouse.objects.get(pk=id)
+			return render(request,'edit_warehouse.html',{ware:"ware"})
+		else:
+			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'))
+			obj.save()
+			return HttpResponseRedirect('/')
+	elif Userform.objects.get(user=request.user).flag==2:
+		return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/account/login')
+		
 def add_warehouse(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
 		if request.method=="GET":
