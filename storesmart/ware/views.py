@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.http import Http404,HttpResponseRedirect,HttpResponse
 from django.contrib.auth import authenticate ,login,logout
 
+def home(request):
+	return HttpResponse("hii")
+
 def register(request):
 	if request.method=='POST':
 		form=Userform(request.POST)
