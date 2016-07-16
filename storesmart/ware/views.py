@@ -12,13 +12,29 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-	q='Vancouver, BC, Canada'
-    w='San Francisco, CA, USA'
-    url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+q+"&destinations="+w+"&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
-    ds = requests.get(url).json()
-    a=ds['destination_addresses']
-    b=ds['rows'][0]['elements'][0]['distance']['text']
-    return HttpResponse(b)
+	b={}
+	stat=0
+	if 'txtSource' in request.POST:
+		arr=warehouse.objects.all()
+		for a in arr:
+			w=a.location
+			q=request.POST['txtSource']
+			url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+q+"&destinations="+w+"&mode=driving&language=en-EN&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
+			ds = requests.get(url).json()
+			a=ds['destination_addresses']
+			b[w]=ds['rows'][0]['elements'][0]['distance']['text']
+			for k in sorted(b, key=b.get, reverse=True):
+  				print (k)
+
+		stat=1
+
+	context = {
+	'stat':stat,
+	'b':b,
+
+	} 
+
+	return render(request,'abc.html',context)
 	
 def edit_warehouse(request,id):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
