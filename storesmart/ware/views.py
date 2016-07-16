@@ -12,7 +12,19 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-	return render(request,'abc.html',{})
+	stat=0
+	if 'txtSource' in request.POST:
+		stat=1
+		arr=['Andheri, Mumbai, India', 'Andheri, Mumbai, India' ]
+	else:
+		stat=0
+		arr=[]
+	context = {
+	 "arr":arr,
+	 "stat":stat,
+	}
+    
+	return render(request,'abc.html',context)
 
 def add_warehouse(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
