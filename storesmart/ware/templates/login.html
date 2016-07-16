@@ -1,7 +1,43 @@
-<h3>Login</h3>
-<form action="" method="POST">{% csrf_token %}
-	<input type="text" name="username" required>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Store Smart</title>
 	
-	<input type="password" name="password" required>
-	<input type="submit" value="login">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style type="text/css">
+	body
+	{
+		margin-top: 70px;
+	
+		
+	}
+</style>
+
+</head>
+
+<body>
+<div class="container-fluid">
+<div class="row">
+	<div class="col-md-4"></div>
+
+<div class="col-md-4 ff">
+
+<h1 style="text-align:center; font-family:Monotype Corosiva;">LOGIN</h1><br />
+<form action="" method="POST">{% csrf_token %}
+<div class="form-group">
+				    <label for="name">Username:</label>
+				    <input type="text" class="form-control" id="username" name="username">
+				  </div>
+				  <div class="form-group">
+				    <label for="pwd">Password:</label>
+				    <input type="password" class="form-control" id="password" name="password">
+				  </div>
+  
+  				<button type="submit"  class="btn btn-primary center-block">Submit</button>
 </form>
+</div>
+</div>
+</div>
+</body>
+</html>
