@@ -12,18 +12,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-	import simplejson, urllib
-	AUTH_KEY = "AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
-	orig_lat, orig_lng=10,10
-	dest_lat, dest_lng=20,20
-	orig_coord = orig_lat, orig_lng
-	dest_coord = dest_lat, dest_lng
-	url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&key='AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0'"
-	#url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
-	#result= simplejson.load(urllib.urlopen(url))
-	result = requests.get(url).json()
-	#driving_time = result['rows'][0]['elements'][0]['duration']['value']
-	return HttpResponse(result)
+	return render(request,'abc.html',{})
 
 def add_warehouse(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
