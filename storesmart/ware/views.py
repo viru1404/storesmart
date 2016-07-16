@@ -56,6 +56,10 @@ def edit_warehouse(request,id):
 			ware.severe_available=request.POST.get('severe')
 			ware.mild_available=request.POST.get('mild')
 			ware.hot_available=request.POST.get('hot')
+			ware.cold_rate=request.POST.get('cold_rate')
+			ware.mild_rate=request.POST.get('mild_rate')
+			ware.hot_rate=request.POST.get('hot_rate')
+			ware.severe_rate=request.POST.get('severe_rate')
 			ware.save()
 			return HttpResponseRedirect('/')
 	elif Userform.objects.get(user=request.user).flag==2:
@@ -75,6 +79,7 @@ def add_warehouse(request):
 		return HttpResponseRedirect('/')
 	else:
 		return HttpResponseRedirect('/account/login')
+
 
 
 
