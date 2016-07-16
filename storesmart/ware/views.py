@@ -3,8 +3,25 @@ from django.shortcuts import render
 from django.http import Http404,HttpResponseRedirect,HttpResponse
 from django.contrib.auth import authenticate ,login,logout
 
+from django.views import generic
+from django.http.response import HttpResponse
+import json, random ,re, requests,urllib,urllib.request
+from pprint import pprint
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 def home(request):
-	return HttpResponse("hii")
+	import simplejson, urllib
+	orig_lat, orig_lng=10,10
+	dest_lat, dest_lng=20,20
+	orig_coord = orig_lat, orig_lng
+	dest_coord = dest_lat, dest_lng
+	url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
+	#result= simplejson.load(urllib.urlopen(url))
+	result = requests.get(url).json()
+	#driving_time = result['rows'][0]['elements'][0]['duration']['value']
+	return HttpResponse(result)
+
 
 def register(request):
 	if request.method=='POST':
