@@ -11,7 +11,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
+def home2(request):
+	all_ware=warehouse.objects.filter(user=request.user)
+	return render(request,'home2.html',{'all':all_ware})
+
 def home(request):
+	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
+		return home2(request)
 	b={}
 	stat=0
 	if 'txtSource' in request.POST:
@@ -39,11 +45,18 @@ def home(request):
 def edit_warehouse(request,id):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
 		if request.method=="GET":
-			ware=warehouse.objects.get(pk=id)
-			return render(request,'edit_warehouse.html',{ware:"ware"})
+			ware=warehouse.objects.get(id=id)
+			print (ware)
+			return render(request,'edit_warehouse.html',{'ware':ware})
 		else:
-			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'))
-			obj.save()
+			ware=warehouse.objects.get(id=id)
+			ware.user=request.user.username
+			ware.location=request.POST.get('location')
+			ware.cold_available=request.POST.get('cold')
+			ware.severe_available=request.POST.get('severe')
+			ware.mild_available=request.POST.get('mild')
+			ware.hot_available=request.POST.get('hot')
+			ware.save()
 			return HttpResponseRedirect('/')
 	elif Userform.objects.get(user=request.user).flag==2:
 		return HttpResponseRedirect('/')

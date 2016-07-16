@@ -1,11 +1,11 @@
 <h3>edit_warehouse</h3>
 <form action="" method="POST">{% csrf_token %}
 Location:
-<input type="text" name="location" value={{ware.location}} required><br>
-cold_available:<input type="number" name="cold" min="0" value={{ware.cold_available}} required><br>
-hot_available:<input type="number" name="hot" min="0" value={{ware.hot_available}} required><br>
-mild_available:<input type="number" name="mild" min="0" value={{ware.mild_available}} required><br>
-severe_available:<input type="number" name="severe" min="0" value={{ware.severe_available}} required><br>
+<input type="text" name="location" value="{{ware.location}}"><br>
+cold_available:<input type="number" name="cold" min="0" max={{ware.cold_total}} value={{ware.cold_available}} required><br>
+hot_available:<input type="number" name="hot" min="0" max={{ware.hot_total}} value={{ware.hot_available}} required><br>
+mild_available:<input type="number" name="mild" min="0" max={{ware.mild_total}} value={{ware.mild_available}} required><br>
+severe_available:<input type="number" name="severe" min="0" max={{ware.severe_total}} value={{ware.severe_available}} required><br>
 <input type="submit" value="change">
 
 </form>
