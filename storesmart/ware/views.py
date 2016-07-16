@@ -68,7 +68,7 @@ def add_warehouse(request):
 		if request.method=="GET":
 			return render(request,'add_warehouse.html',{})
 		else:
-			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'))
+			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'),cold_rate=request.POST.get('cold_rate'),hot_rate=request.POST.get('hot_rate'),mild_rate=request.POST.get('mild_rate'),severe_rate=request.POST.get('severe_rate'))
 			obj.save()
 			return HttpResponseRedirect('/')
 	elif Userform.objects.get(user=request.user).flag==2:
