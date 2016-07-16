@@ -19,7 +19,7 @@ def register(request):
 			user2=authenticate(username=username,password=password)
 			if user2 is not None:
 				login(request,user2)
-				return HttpResponseRedirect('/')
+				return HttpResponseRedirect('/index/')
 		return render(request,'registration.html',{'form':form})
 	else:
 		form=Userform(None)
@@ -41,5 +41,24 @@ def logintoit(request):
 def logout1(request):
 	logout(request)
 	return HttpResponseRedirect('/account/login/')
+	
+def index(request):
+	if request.user.is_authenticated():
+		user=request.user
+		if request.method="GET":
+			try :
+				obj=Userform.objects.get(user=user)
+				return HttpResponseRedirect('/')
+			except Userform.DoesNotExist:
+				return render(request,'index.html',{})
+		else:
+			temp=request.POST.get('flag')
+			if flag=='ware':
+				sam=Userform.objects.create(user=user,flag=1)
+				sam.save()
+			else:
+				sam=Userform.objects.create(user=user,flag=2)
+				sam.save()
+			return HttpResponseRedirect('/')
 
 
