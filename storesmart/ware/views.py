@@ -25,6 +25,21 @@ def home(request):
 	#driving_time = result['rows'][0]['elements'][0]['duration']['value']
 	return HttpResponse(result)
 
+def add_warehouse(request):
+	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
+		if request.method=="GET":
+			return render(request,'add_warehouse.html',{})
+		else:
+			obj=warehouse.objects.create(user=request.user.username,location=request.POST.get('location'),cold_total=request.POST.get('cold'),cold_available=request.POST.get('cold'),severe_total=request.POST.get('severe'),severe_available=request.POST.get('severe'),mild_total=request.POST.get('mild'),mild_available=request.POST.get('mild'),hot_total=request.POST.get('hot'),hot_available=request.POST.get('hot'))
+			obj.save()
+			return HttpResponseRedirect('/')
+	elif Userform.objects.get(user=request.user).flag==2:
+		return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/account/login')
+
+
+
 
 def register(request):
 	if request.method=='POST':

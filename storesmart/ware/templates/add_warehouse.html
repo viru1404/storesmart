@@ -1,0 +1,11 @@
+<h3>add_warehouse</h3>
+<form action="" method="POST">{% csrf_token %}
+Location:
+<input type="text" name="location" required><br>
+cold_total:<input type="number" name="cold" min="0" required><br>
+hot_total:<input type="number" name="hot" min="0" required><br>
+mild_total:<input type="number" name="mild" min="0" required><br>
+severe_total:<input type="number" name="severe" min="0" required><br>
+<input type="submit" value="add">
+
+</form>
