@@ -5,4 +5,5 @@ urlpatterns = [
     url(r'^account/register/$',register,name='register'),
     url(r'^account/login/$',logintoit,name='login'),
     url(r'^account/logout/$',logout1,name='logout'),
+    url(r'^index/$',index,name='index'),
 ]

@@ -2,13 +2,14 @@ from .forms import Userform
 from django.shortcuts import render
 from django.http import Http404,HttpResponseRedirect,HttpResponse
 from django.contrib.auth import authenticate ,login,logout
-
+from .models import *
 from django.views import generic
 from django.http.response import HttpResponse
 import json, random ,re, requests,urllib,urllib.request
 from pprint import pprint
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
 	import simplejson, urllib
@@ -49,7 +50,7 @@ def logintoit(request):
 		user=authenticate(username=username,password=password)
 		if user is not None:
 			login(request,user)
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/index/')
 		return render(request,'login.html',{})
 
 	else:
@@ -62,11 +63,11 @@ def logout1(request):
 def index(request):
 	if request.user.is_authenticated():
 		user=request.user
-		if request.method="GET":
+		if request.method=="GET":
 			try :
 				obj=Userform.objects.get(user=user)
 				return HttpResponseRedirect('/')
-			except Userform.DoesNotExist:
+			except ObjectDoesNotExist:
 				return render(request,'index.html',{})
 		else:
 			temp=request.POST.get('flag')
