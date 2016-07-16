@@ -1,5 +1,46 @@
-<h3>Register</h3>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Store Smart</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style type="text/css">
+	body
+	{
+		margin-top: 70px;
+		
+		
+	}
+</style>
+</head>
+
+<body>
+<div class="container-fluid">
+<div class="row">
+	<div class="col-md-4"></div>
+
+<div class="col-md-4">
+
+<h1 style="text-align:center; font-family:Monotype Corosiva;">REGISTER</h1><br />
 <form action="" method="POST"> {% csrf_token %}
 	{{form.as_p}}
-	<input type="submit" value="register">
+	<div class="form-group">
+				    <label for="name">USERNAME:</label>
+				    <input type="text" class="form-control" id="name">
+				  </div>
+				  <div class="form-group">
+				    <label for="email">Email address:</label>
+				    <input type="email" class="form-control" id="email">
+				  </div>
+				  <div class="form-group">
+				    <label for="pwd">Password:</label>
+				    <input type="password" class="form-control" id="pwd">
+				  </div>
+  
+  				<input type="submit" class="btn btn-primary center-block">
 </form>
+</div>
+</div>
+</div>
+</body>
+</html>
