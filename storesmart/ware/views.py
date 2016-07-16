@@ -18,7 +18,8 @@ def home2(request):
 def home(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
 		return home2(request)
-	b={}
+	c={}
+	b=""
 	stat=0
 	if 'txtSource' in request.POST:
 		arr=warehouse.objects.all()
@@ -27,12 +28,17 @@ def home(request):
 			q=request.POST['txtSource']
 			url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+q+"&destinations="+w+"&mode=driving&language=en-EN&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
 			ds = requests.get(url).json()
+			if  ds['status']!="OK" or ds['rows'][0]['elements'][0] ['status']!="OK":
+				continue
 			a=ds['destination_addresses']
-			b[w]=ds['rows'][0]['elements'][0]['distance']['text']
-			for k in sorted(b, key=b.get, reverse=True):
-  				print (k)
+			c[w]=ds['rows'][0]['elements'][0]['distance']['text']
+		
 
 		stat=1
+		for k in sorted(c, key=c.get, reverse=True):
+  			print (k)
+  			b=k
+  			break
 
 	context = {
 	'stat':stat,

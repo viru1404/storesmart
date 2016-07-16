@@ -67,8 +67,8 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html">LOGIN</a></li>
-        <li><a href="registration.html">SIGNUP</a></li>
+        <li><a href="account/login/">LOGIN</a></li>
+        <li><a href="account/register/">SIGNUP</a></li>
       </ul>
     </div>
   </div>
@@ -90,14 +90,14 @@ google.maps.event.addDomListener(window, 'load', function () {
 <h1>Plan and Book Your Perfect STORAGE SPACE</h1>
         Source:
        <form method="POST" action="" style="margin-top:70px;">{% csrf_token %}
-        <input type="text" id="txtSource" name="txtSource" value="Bandra, Mumbai, India" style="width: 200px" />
+        <input type="text" id="txtSource" name="txtSource" value="Bandra, Mumbai, India" style="width: 200px; color:black;" />
         &nbsp;
-        
-        <input type="submit" value="Get Route"  />
+     
+        <input type="submit" value="Get Route" style="color:black;" />
        </form>
           
 {% if stat %}
-q <br>
+ {{b}}<br>
 {% endif %}
 </div>
 <!-- Second Container -->
