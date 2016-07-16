@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Store Smart</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: #474e5d; /* Green */
+      color: #ffffff;
+      height: 800px;
+
+  }
+  .bg-2 { 
+      background-color:#ffffff; /* Dark Blue */
+      color:black;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+  input
+  {
+    color:black;
+  }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Store Smart</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript">
+var source, destination;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+google.maps.event.addDomListener(window, 'load', function () {
+    new google.maps.places.SearchBox(document.getElementById('txtSource'));
+    
+    directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });
+});</script>
+<div class="container-fluid bg-1 text-center">
+<h1>Add Warehouse</h1>
+<form action="" method="POST">{% csrf_token %}
+ <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="txtSource" class="col-sm-2 form-control-label">Location</label>
+    <div class="col-sm-4">
+    
+      <input id="txtSource" type="text" name="location" required>
+    </div>
+  </div>
+  <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEma" class="col-sm-2 form-control-label"> Cold_Total</label>
+    <div class="col-sm-4">
+      <input type="number" name="cold" min="0" required>
+    </div>
+  </div>
+  <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEmail3" class="col-sm-2 form-control-label"> Hot_Total</label>
+    <div class="col-sm-4">
+      <input type="number" name="hot" min="0" required>
+    </div>
+  </div>
+  <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">Mild_Total</label>
+    <div class="col-sm-4">
+      <input type="number" name="mild" min="0" required>
+    </div>
+  </div>
+  <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">SEVERE_Total</label>
+    <div class="col-sm-4">
+      <input type="number" name="severe" min="0" required><br>
+    </div>
+  </div>
+  <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">COLD_rate</label>
+    <div class="col-sm-4">
+     <input type="number" name="cold_rate" min="0" required>
+    </div>
+  </div>
+   <div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">hot_rate</label>
+    <div class="col-sm-4">
+    <input type="number" name="hot_rate" min="0" required>
+    </div>
+  </div>
+<div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">mild_rate</label>
+    <div class="col-sm-4">
+   <input type="number" name="mild_rate" min="0" required>
+    </div>
+  </div>
+
+<div class="form-group row">
+  <div class="col-sm-2"></div>
+    <label for="inputEml3" class="col-sm-2 form-control-label">severe_rate</label>
+    <div class="col-sm-4">
+   <input type="number" name="severe_rate" min="0" required>
+    </div>
+  </div>
+
+
+  
+  
+<div class="form-group row">
+<div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <input type="submit" class="btn btn-secondary" style="color:black;" value="ADD">
+    </div>
+  </div>
+
+</form>
+</div>
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Made By:</p> 
+</footer>
+
+</body>
+</html>
