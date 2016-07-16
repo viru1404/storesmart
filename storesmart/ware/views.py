@@ -12,19 +12,13 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
-	stat=0
-	if 'txtSource' in request.POST:
-		stat=1
-		arr=['Andheri, Mumbai, India', 'Andheri, Mumbai, India' ]
-	else:
-		stat=0
-		arr=[]
-	context = {
-	 "arr":arr,
-	 "stat":stat,
-	}
-    
-	return render(request,'abc.html',context)
+	q='Vancouver, BC, Canada'
+	w='San Francisco, CA, USA'
+	url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+q+"&destinations="+w+"&key=AIzaSyB7qtuTdcnDb6Dl4BrmsZyxIMrUMpwhHW0"
+	ds = requests.get(url).json()
+	a=ds['destination_addresses']
+	b=ds['rows'][0]['elements'][0]['distance']['text']
+	return HttpResponse(b)
 
 def add_warehouse(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
