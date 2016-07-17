@@ -40,6 +40,7 @@ def home(request):
   			b=k
   			break
 
+  	
 	context = {
 	'stat':stat,
 	'b':b,
