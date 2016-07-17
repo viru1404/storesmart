@@ -20,9 +20,10 @@ def orders(request):
 		if request.method=='POST':
 			order2=order.objects.create(user="sam",ware_owner="viru",quantity=100,price=1000,type_of="mild")
 			order2.save()
+
 			#order1=order.objects.create(user=request.user.username,ware_owner=request.POST.get('owner'),quantity=request.POST.get('quantity'),type_of=request.POST.get('type_of'),price=1000)
 			#order1.save()
-			return render(request,'order_completed.html',{})
+			return render(request,'order_completed.html',{'order2':order2})
 
 def home(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
@@ -61,6 +62,7 @@ def home(request):
 	'type_of':request.POST.get('inlineRadioOptions'),
 	'quantity':request.POST.get('totalmaterial'),
 	'owner':owner,
+
 
 	} 
 
