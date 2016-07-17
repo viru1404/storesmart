@@ -41,6 +41,8 @@ def home(request):
   			break
 
   	
+	if not b:
+		b="Not Available Any"
 	context = {
 	'stat':stat,
 	'b':b,
