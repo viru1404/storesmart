@@ -15,6 +15,15 @@ def home2(request):
 	all_ware=warehouse.objects.filter(user=request.user)
 	return render(request,'home2.html',{'all':all_ware})
 
+def orders(request):
+	if request.user.is_authenticated():
+		if request.method=='POST':
+			order2=order.objects.create(user="sam",ware_owner="viru",quantity=100,price=1000,type_of="mild")
+			order2.save()
+			#order1=order.objects.create(user=request.user.username,ware_owner=request.POST.get('owner'),quantity=request.POST.get('quantity'),type_of=request.POST.get('type_of'),price=1000)
+			#order1.save()
+			return render(request,'order_completed.html',{})
+
 def home(request):
 	if request.user.is_authenticated() and Userform.objects.get(user=request.user).flag==1:
 		return home2(request)
@@ -43,9 +52,15 @@ def home(request):
   	
 	if not b:
 		b="Not Available Any"
+		owner=""
+	else:
+		owner=warehouse.objects.get(location=b).user
 	context = {
 	'stat':stat,
 	'b':b,
+	'type_of':request.POST.get('inlineRadioOptions'),
+	'quantity':request.POST.get('totalmaterial'),
+	'owner':owner,
 
 	} 
 

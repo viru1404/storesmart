@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^account/logout/$',logout1,name='logout'),
     url(r'^index/$',index,name='index'),
     url(r'^add_warehouse/$',add_warehouse,name='add_warehouse'),
+    url(r'^order/$', orders,name="order"),
 ]
