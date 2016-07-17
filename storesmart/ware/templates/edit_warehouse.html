@@ -71,7 +71,13 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-       
+             {% if user.is_authenticated %}
+         <li><a href="/">Home</a></li>
+        <li><a href="account/logout/">logout</a></li>
+    {% else %}
+        <li><a href="account/login/">LOGIN</a></li>
+        <li><a href="account/register/">SIGNUP</a></li>
+    {% endif %}
       </ul>
     </div>
   </div>
